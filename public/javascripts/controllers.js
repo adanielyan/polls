@@ -43,25 +43,23 @@ function PollItemCtrl($scope, $routeParams, socket, Poll) {
 // Controller for an individual form
 function FormItemCtrl($scope, $routeParams, socket, TechlabForm) {	
 	$scope.form = TechlabForm.get({formId: $routeParams.formId});
-	//$scope.formResults = TechlabFormResults.get({formId: $routeParams.formId});
 	
 	socket.on('mysubmit', function(data) {
-		console.dir(data);
+		//console.dir(data);
 		if(data._id === $routeParams.formId) {
 			$scope.form = data;
 		}
 	});
 	
 	socket.on('submit', function(data) {
-		console.dir(data);
+		//console.dir(data);
 		if(data._id === $routeParams.formId) {
 			$scope.form.fields = data.fields;
 		}		
 	});
 	
 	$scope.submit = function() {
-		var formId = $scope.form._id,
-			fields = $scope.form.fields;
+		var	fields = $scope.form.fields;
 		
 		var filled = true;
 		for(i=0; i<fields.length; i++) {
@@ -73,6 +71,9 @@ function FormItemCtrl($scope, $routeParams, socket, TechlabForm) {
 		if(filled) {
 			var result = jQuery.parseJSON(angular.toJson($scope.form));
 			socket.emit('send:submit', result);
+			for(i=0; i< fields.length; i++) {
+				$scope.form.fields[i].values = [];
+			}
 		} else {
 			alert('You must fill in the form before submission');
 		}
@@ -82,20 +83,25 @@ function FormItemCtrl($scope, $routeParams, socket, TechlabForm) {
 
 // Controller for an individual form
 function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {	
-	//$scope.form = TechlabForm.get({formId: $routeParams.formId});
-	$scope.formResults = TechlabFormResults.get({formId: $routeParams.formId});
+	TechlabFormResults.query({formId: $routeParams.formId}, function(data) {
+		$scope.showResults = false;
+		$scope.formResults = data;
+		if(data.length > 0) $scope.showResults = true;
+	});
+	
 	
 	socket.on('mysubmit', function(data) {
-		console.dir(data);
-		if(data._id === $routeParams.formId) {
-			$scope.form = data;
+		if(data.form_id === $routeParams.formId) {
+			$scope.showResults = true;
+			$scope.formResults.push(data);
 		}
 	});
 	
 	socket.on('submit', function(data) {
-		console.dir(data);
-		if(data._id === $routeParams.formId) {
-			$scope.form.fields = data.fields;
+		//console.dir(data);
+		if(data.form_id === $routeParams.formId) {
+			$scope.showResults = true;
+			$scope.formResults.push(data);
 		}		
 	});
 }

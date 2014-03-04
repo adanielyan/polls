@@ -31,11 +31,11 @@
 		</form>
 	</div>
 		
-	<div ng-show="form.results" ng-controller="FormResultsCtrl">
+	<div ng-show="showResults" ng-controller="FormResultsCtrl">
 		<table class="result-table">
-			<tr ng-repeat="result in formResults.results" ng-model="result">
-				<td>{{result.label}}</td>
-				<td>{{result.values}}</td>
+			<tr ng-repeat="result in formResults" ng-model="result">
+				<td>{{result._id}}</td>
+				<td>{{result.submitted}}</td>
 			</tr>
 		</table>
 		

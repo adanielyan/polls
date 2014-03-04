@@ -86,7 +86,7 @@ exports.form = function(req, res) {
 	var formId = req.params.id;
 	
 	// Find the form by its ID, use lean as we won't be changing it
-	TechlabForm.findById(formId, '', { lean: true }, function(err, form) {
+	TechlabForm.findById(formId, '', function(err, form) {
 		if(form) {
 			res.json(form);
 		} else {
@@ -101,7 +101,7 @@ exports.results = function(req, res) {
 	var formId = req.params.id;
 	
 	// Find the form by its ID, use lean as we won't be changing it
-	TechlabFormResults.findById(formId, '', { lean: true }, function(err, results) {
+	TechlabFormResults.find({"form_id": formId}, function(err, results) {
 		if(results) {
 			res.json(results);
 		} else {
