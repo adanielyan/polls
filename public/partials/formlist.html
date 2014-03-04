@@ -1,0 +1,27 @@
+<div class="page-wrapper" ng-controller="FormListCtrl">
+	<div class="page-header">
+		<h1>Forms List</h1>
+	</div>
+	<div class="row">
+		<div class="col-xs-5">
+			<a href="#/newform" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> New Form</a>
+		</div>
+		<div class="col-xs-7">
+			<input type="text" class="form-control" ng-model="query" placeholder="Search for a form">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12"><hr></div>
+	</div>
+	<div class="row" ng-switch on="forms.length">
+		<ul ng-switch-when="0">
+			<li><em>No forms in databases. Would you like to <a href="#/newform">create one</a>?</li>
+		</ul>
+		<ul ng-switch-default>
+			<li ng-repeat="form in forms | filter:query">
+				<a href="#/form/{{form._id}}">{{form.title}}</a>
+			</li>
+		</ul>
+	</div>
+	<p>&nbsp;</p>
+</div>

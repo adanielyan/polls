@@ -1,0 +1,48 @@
+<div class="page-wrapper" ng-controller="FormItemCtrl">
+	<div class="page-header">
+		<h1>View Form</h1>
+	</div>
+	<div class="well well-lg">
+		<strong>Form ID</strong><br>{{form._id}}
+	</div>
+	<div class="well well-lg">
+		<strong>Form Name</strong><br>{{form.title}}
+	</div>
+
+	<div ng-hide="form.userSubmitted">
+		<p class="lead">Please fill in the following fields:</p>
+
+		<form role="form" ng-submit="submit()">
+			<div ng-repeat="field in form.fields" class="text">
+				<label>
+					{{field.label}}<br />
+					<input type="{{field.type}}" name="field" ng-model="field.values" value="{{field._id}}">
+				</label>
+			</div>
+			<p><hr></p>
+			<div class="row">
+				<div class="col-xs-6">
+					<a href="#/forms" class="btn btn-default" role="button"><span class="glyphicon glyphicon-arrow-left"></span> Back to Forms List</a>
+				</div>
+				<div class="col-xs-6">
+					<button class="btn btn-primary pull-right" type="submit">Submit &raquo;</button>
+				</div>
+			</div>
+		</form>
+	</div>
+		
+	<div ng-show="form.results" ng-controller="FormResultsCtrl">
+		<table class="result-table">
+			<tr ng-repeat="result in formResults.results" ng-model="result">
+				<td>{{result.label}}</td>
+				<td>{{result.values}}</td>
+			</tr>
+		</table>
+		
+		<p><hr></p>
+		
+		<p><a href="#/forms" class="btn btn-default" role="button"><span class="glyphicon glyphicon-arrow-left"></span> Back to Forms List</a></p>
+	</div>
+
+	<p>&nbsp;</p>
+</div>

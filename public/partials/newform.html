@@ -1,0 +1,44 @@
+<div class="page-wrapper" ng-controller="FormListCtrl">
+	<div class="page-header">
+		<h1>Create New Form</h1>
+	</div>
+
+	<form role="form" ng-submit="createForm()">
+		<div class="form-group">
+			<label for="formField">Form ID</label>
+			<input type="text" ng-model="form._id" class="form-control" id="formId" placeholder="Enter form id">
+		</div>
+		<div class="form-group">
+			<label for="formField">Form name</label>
+			<input type="text" ng-model="form.title" class="form-control" id="formName" placeholder="Enter form name">
+		</div>
+		
+		<div class="form-group">
+			<label>Fields</label>
+			<div ng-repeat="field in form.fields">
+				<input type="text" ng-model="field.field_id" class="form-control" placeholder="Enter field {{$index+1}} id">
+				<input type="text" ng-model="field.label" class="form-control" placeholder="Enter field {{$index+1}} name">
+				<br />
+			</div>
+		</div>		
+		
+		<div class="row">
+			<div class="col-xs-12">
+				<button type="button" class="btn btn-default" ng-click="addField()"><span class="glyphicon glyphicon-plus"></span> Add another</button>
+			</div>
+		</div>
+		
+		<p><hr></p>
+		
+		<div class="row">
+			<div class="col-xs-6">
+				<a href="#/forms" class="btn btn-default" role="button"><span class="glyphicon glyphicon-arrow-left"></span> Back to Forms List</a>
+			</div>
+			<div class="col-xs-6">
+				<button class="btn btn-primary pull-right" type="submit">Create Form &raquo;</button>
+			</div>
+		</div>
+		
+		<p>&nbsp;</p>
+	</form>
+</div>

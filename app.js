@@ -34,6 +34,12 @@ app.get('/polls/:id', routes.poll);
 app.post('/polls', routes.create);
 app.post('/vote', routes.vote);
 
+app.get('/forms/forms', routes.listForms);
+app.get('/forms/:id', routes.form);
+app.get('/results/:id', routes.results);
+app.post('/forms', routes.createForm);
+app.post('/submit', routes.vote);
+
 io.sockets.on('connection', routes.vote);
 
 server.listen(app.get('port'), function(){
