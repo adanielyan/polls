@@ -110,6 +110,27 @@ exports.results = function(req, res) {
 	});
 };
 
+// JSON API for initializing form results
+exports.initResults = function(req, res) {
+	// Form ID comes in the URL
+	var formId = req.params.id;
+	var results = new TechlabFormResults();
+	results.form_id = formId;
+	
+	// Find the form by its ID, use lean as we won't be changing it
+	TechlabForm.findById(formId, '', function(err, form) {
+		if(form) {
+			for(i=0; i<form.fields.length; i++) {
+				results.results.push({field_id: form.fields[i].field_id, label: form.fields[i].label, values: []});
+			}
+			res.json(results);
+		} else {
+			res.json({error:true});
+		}
+	});
+};
+
+
 // JSON API for creating a new poll
 exports.create = function(req, res) {
 	var reqBody = req.body,
@@ -197,17 +218,15 @@ exports.vote = function(socket) {
 	//Form submission processing
 	socket.on('send:submit', function(data) {
 		//var ip = socket.handshake.headers['x-forwarded-for'] || socket.handshake.address.address;
-		var result = {
-			form_id: data._id,
-			results: data.fields
-		};
+		var result = data;
+		console.log(result);
 
 		var formResults = new TechlabFormResults(result);
 		
 		formResults.save(function(err, doc) {
 			if(err || !doc) {
-				console.log(err.message);
-				throw 'Error';
+				console.log(err);
+				throw 'Error: ' + err.message;
 			} else {
 				socket.emit('mysubmit', doc);
 				socket.broadcast.emit('submit', doc);

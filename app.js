@@ -36,6 +36,7 @@ app.post('/vote', routes.vote);
 
 app.get('/forms/forms', routes.listForms);
 app.get('/forms/:id', routes.form);
+app.get('/results/:id/new', routes.initResults);
 app.get('/results/:id', routes.results);
 app.post('/forms', routes.createForm);
 app.post('/submit', routes.vote);

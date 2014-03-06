@@ -4,7 +4,13 @@ var mongoose = require('mongoose');
 exports.ResultsSchema = new mongoose.Schema({
 	form_id: { type: String, required: true },
 	submitted: { type: Date, default: Date.now },
-	results: [mongoose.Schema.Types.Mixed]
+	results: [
+		{
+			field_id: String,
+			label: String,
+			values: [String]
+		}
+	]
 });
 
 // Document schema for polls
@@ -16,7 +22,7 @@ exports.FormSchema = new mongoose.Schema({
 		label: String,
 		type: String,
 		multi: Boolean,
-		values: [String]
+		values: [{id: String, value: String}]
 	},
 	{_id: false})]
 });

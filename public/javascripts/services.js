@@ -39,10 +39,13 @@ angular.module('formServices', ['ngResource']).
 		})
 	}).
 	factory('TechlabFormResults', function($resource) {
-		return $resource('results/:formId', {}, {
-			// Use this method for getting a list of forms
-			query: { method: 'GET', params: { formId: 'results' }, isArray: true }
-		})
+		return { 
+			results: $resource('results/:formId', {}, {
+				// Use this method for getting a list of forms
+				query: { method: 'GET', params: { formId: 'results' }, isArray: true }
+			}),
+			init: $resource('results/:formId/new')
+		}
 	}).
 	factory('socket', function($rootScope) {
 		var socket = io.connect();

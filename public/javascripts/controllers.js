@@ -41,54 +41,61 @@ function PollItemCtrl($scope, $routeParams, socket, Poll) {
 }
 
 // Controller for an individual form
-function FormItemCtrl($scope, $routeParams, socket, TechlabForm) {	
-	$scope.form = TechlabForm.get({formId: $routeParams.formId});
-	
-	socket.on('mysubmit', function(data) {
-		//console.dir(data);
-		if(data._id === $routeParams.formId) {
-			$scope.form = data;
-		}
-	});
-	
-	socket.on('submit', function(data) {
-		//console.dir(data);
-		if(data._id === $routeParams.formId) {
-			$scope.form.fields = data.fields;
-		}		
-	});
-	
-	$scope.submit = function() {
-		var	fields = $scope.form.fields;
-		
-		var filled = true;
-		for(i=0; i<fields.length; i++) {
-			if(fields[i].values.length < 1) {
-				filled = false;
-			}
-		}
-		
-		if(filled) {
-			var result = jQuery.parseJSON(angular.toJson($scope.form));
-			socket.emit('send:submit', result);
-			for(i=0; i< fields.length; i++) {
-				$scope.form.fields[i].values = [];
-			}
-		} else {
-			alert('You must fill in the form before submission');
+function FormItemCtrl($scope, $routeParams, socket, TechlabForm, TechlabFormResults) {	
+	TechlabForm.get({formId: $routeParams.formId}, function(form) {
+
+		$scope.init = function(form) {
+			$scope.form = form;
+			$scope.results = TechlabFormResults.init.get({formId: $routeParams.formId});
+			console.log($scope.results);
 		}
 
-	};
+		$scope.init(form);
+
+		socket.on('mysubmit', function(data) {
+			//console.dir(data);
+			if(data.form_id === $routeParams.formId) {
+				$scope.form = data;
+			}
+		});
+		
+		socket.on('submit', function(data) {
+			//console.dir(data);
+			if(data.form_id === $routeParams.formId) {
+				$scope.form.fields = data.fields;
+			}		
+		});
+		
+		$scope.submit = function() {
+			var	results = $scope.results;
+			console.log(results);
+			
+			for(i=0; i<results.results.length; i++) {
+				results.results[i].values = results.results[i].values.filter(function(n){return n; });
+			}
+			
+			var result = jQuery.parseJSON(angular.toJson(results));
+			socket.emit('send:submit', result);
+			$scope.init(form);
+			for(i=0; i< $scope.form.fields.length; i++) {
+				if($scope.form.fields[i].type == "text") {
+					$scope.form.fields[i].values = [];
+				}
+				else {
+					//$scope.form.fields[i].values = [];
+				}
+			}
+		};
+	});
 }
 
-// Controller for an individual form
+// Controller for an form results
 function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {	
-	TechlabFormResults.query({formId: $routeParams.formId}, function(data) {
+	TechlabFormResults.results.query({formId: $routeParams.formId}, function(data) {
 		$scope.showResults = false;
 		$scope.formResults = data;
 		if(data.length > 0) $scope.showResults = true;
 	});
-	
 	
 	socket.on('mysubmit', function(data) {
 		if(data.form_id === $routeParams.formId) {

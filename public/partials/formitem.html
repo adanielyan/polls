@@ -9,16 +9,43 @@
 		<strong>Form Name</strong><br>{{form.title}}
 	</div>
 
-	<div ng-hide="form.userSubmitted">
+	<div>
 		<p class="lead">Please fill in the following fields:</p>
 
-		<form role="form" ng-submit="submit()">
+		<form role="form" ng-submit="submit()" class="form-inline">
+
 			<div ng-repeat="field in form.fields" class="text">
-				<label>
-					{{field.label}}<br />
-					<input type="{{field.type}}" name="field" ng-model="field.values" value="{{field._id}}">
-				</label>
+
+				<label>{{field.label}}</label><br />
+			
+				<div data-ng-switch on="field.type">
+					
+					<div ng-switch-when="checkbox">
+						<div ng-repeat="value in field.values">
+							<label>
+								<input type="checkbox" name="{{value.id}}" ng-true-value="{{value.id}}" ng-false-value="" ng-model="results.results[$parent.$index].values[$index]" /> {{value.name}}
+							</label>
+						</div>
+					</div>
+
+					<div ng-switch-when="radio">
+						<div ng-repeat="value in field.values">
+							<label>
+								<input type="radio" name="{{field.field_id}}" value="{{value.id}}" ng-true-value="{{value.id}}" ng-false-value="" ng-model="results.results[$parent.$index].values[$index]" /> {{value.name}}
+							</label>
+						</div>
+					</div>
+					
+					<div ng-switch-when="text" >
+						<div>
+							<input type="hidden" value="field.id" ng-model="results.results[$index].id">
+							<input type="text" name="field.label" ng-model="results.results[$index].values[0]" class="form-control" /> {{results.results[$index].values[0]}}
+						</div>
+					</div>
+
+				</div>
 			</div>
+
 			<p><hr></p>
 			<div class="row">
 				<div class="col-xs-6">
