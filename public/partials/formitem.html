@@ -35,11 +35,17 @@
 							</label>
 						</div>
 					</div>
+
+					<div ng-switch-when="select">
+						<div>
+							<select ng-model="results.results[$parent.$index].values[0]" ng-options="c.id as c.name for c in field.values" class="form-control"><option value="">-- Select --</option></select>
+						</div>
+					</div>
 					
 					<div ng-switch-when="text" >
 						<div>
 							<input type="hidden" value="field.id" ng-model="results.results[$index].id">
-							<input type="text" name="field.label" ng-model="results.results[$index].values[0]" class="form-control" /> {{results.results[$index].values[0]}}
+							<input type="text" name="field.label" ng-model="results.results[$index].values[0]" class="form-control" />
 						</div>
 					</div>
 

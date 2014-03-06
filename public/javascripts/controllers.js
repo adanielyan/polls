@@ -53,17 +53,11 @@ function FormItemCtrl($scope, $routeParams, socket, TechlabForm, TechlabFormResu
 		$scope.init(form);
 
 		socket.on('mysubmit', function(data) {
-			//console.dir(data);
-			if(data.form_id === $routeParams.formId) {
-				$scope.form = data;
-			}
+			$scope.init(form);
 		});
 		
 		socket.on('submit', function(data) {
-			//console.dir(data);
-			if(data.form_id === $routeParams.formId) {
-				$scope.form.fields = data.fields;
-			}		
+			$scope.init(form);		
 		});
 		
 		$scope.submit = function() {
