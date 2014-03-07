@@ -1,79 +1,83 @@
 <div class="page-wrapper" ng-controller="FormItemCtrl">
 	<div class="page-header">
-		<h1>View Form</h1>
+		<h1>{{form.title}}</h1>
 	</div>
 	<div class="well well-lg">
 		<strong>Form ID</strong><br>{{form._id}}
 	</div>
-	<div class="well well-lg">
-		<strong>Form Name</strong><br>{{form.title}}
+
+	<div class="panel panel-default">
+		<div class="panel-heading">Please fill in this form</div>
+		<div class="panel-body">
+
+			<form role="form" ng-submit="submit()">
+
+				<div ng-repeat="field in form.fields" class="form-group">
+
+					<label>{{field.label}}</label><br />
+				
+					<div data-ng-switch on="field.type">
+						
+						<div ng-switch-when="checkbox">
+							<div ng-repeat="value in field.values">
+								<label>
+									<input type="checkbox" name="{{value.id}}" ng-true-value="{{value.id}}" ng-false-value="" ng-model="results.results[$parent.$index].values[$index]" /> {{value.name}}
+								</label>
+							</div>
+						</div>
+
+						<div ng-switch-when="radio">
+							<div ng-repeat="value in field.values">
+								<label>
+									<input type="radio" name="{{field.field_id}}" value="{{value.id}}" ng-true-value="{{value.id}}" ng-false-value="" ng-model="results.results[$parent.$index].values[$index]" /> {{value.name}}
+								</label>
+							</div>
+						</div>
+
+						<div ng-switch-when="select">
+							<div>
+								<select ng-model="results.results[$parent.$index].values[0]" ng-options="c.id as c.name for c in field.values" class="form-control"><option value="">-- Select --</option></select>
+							</div>
+						</div>
+						
+						<div ng-switch-when="text" >
+							<div>
+								<input type="hidden" value="field.id" ng-model="results.results[$index].id">
+								<input type="text" name="field.label" ng-model="results.results[$index].values[0]" class="form-control" />
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<p><hr></p>
+				<div class="row">
+					<div class="col-xs-6">
+						<a href="#/forms" class="btn btn-default" role="button"><span class="glyphicon glyphicon-arrow-left"></span> Back to Forms List</a>
+					</div>
+					<div class="col-xs-6">
+						<button class="btn btn-primary pull-right" type="submit">Submit &raquo;</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+
+	<div ng-show="showResults" ng-controller="FormResultsCtrl" class="panel panel-default">
+		<div class="panel-heading">{{form._id}} Form Submission Results</div>
+		<div class="panel-body">
+			<table class="result-table">
+				<tr ng-repeat="result in formResults" ng-model="result">
+					<td>{{result._id}}</td>
+					<td>{{result.submitted}}</td>
+				</tr>
+			</table>
+
+		</div>
 	</div>
 
 	<div>
-		<p class="lead">Please fill in the following fields:</p>
-
-		<form role="form" ng-submit="submit()" class="form-inline">
-
-			<div ng-repeat="field in form.fields" class="text">
-
-				<label>{{field.label}}</label><br />
-			
-				<div data-ng-switch on="field.type">
-					
-					<div ng-switch-when="checkbox">
-						<div ng-repeat="value in field.values">
-							<label>
-								<input type="checkbox" name="{{value.id}}" ng-true-value="{{value.id}}" ng-false-value="" ng-model="results.results[$parent.$index].values[$index]" /> {{value.name}}
-							</label>
-						</div>
-					</div>
-
-					<div ng-switch-when="radio">
-						<div ng-repeat="value in field.values">
-							<label>
-								<input type="radio" name="{{field.field_id}}" value="{{value.id}}" ng-true-value="{{value.id}}" ng-false-value="" ng-model="results.results[$parent.$index].values[$index]" /> {{value.name}}
-							</label>
-						</div>
-					</div>
-
-					<div ng-switch-when="select">
-						<div>
-							<select ng-model="results.results[$parent.$index].values[0]" ng-options="c.id as c.name for c in field.values" class="form-control"><option value="">-- Select --</option></select>
-						</div>
-					</div>
-					
-					<div ng-switch-when="text" >
-						<div>
-							<input type="hidden" value="field.id" ng-model="results.results[$index].id">
-							<input type="text" name="field.label" ng-model="results.results[$index].values[0]" class="form-control" />
-						</div>
-					</div>
-
-				</div>
-			</div>
-
-			<p><hr></p>
-			<div class="row">
-				<div class="col-xs-6">
-					<a href="#/forms" class="btn btn-default" role="button"><span class="glyphicon glyphicon-arrow-left"></span> Back to Forms List</a>
-				</div>
-				<div class="col-xs-6">
-					<button class="btn btn-primary pull-right" type="submit">Submit &raquo;</button>
-				</div>
-			</div>
-		</form>
-	</div>
-		
-	<div ng-show="showResults" ng-controller="FormResultsCtrl">
-		<table class="result-table">
-			<tr ng-repeat="result in formResults" ng-model="result">
-				<td>{{result._id}}</td>
-				<td>{{result.submitted}}</td>
-			</tr>
-		</table>
-		
-		<p><hr></p>
-		
 		<p><a href="#/forms" class="btn btn-default" role="button"><span class="glyphicon glyphicon-arrow-left"></span> Back to Forms List</a></p>
 	</div>
 
