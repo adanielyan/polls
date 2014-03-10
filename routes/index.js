@@ -115,7 +115,7 @@ exports.results = function(req, res) {
 	fields.forEach( function(f) { 
 	    project["$project"][f] = { "$cond" : 
           [ { "$eq" : [ f, "$results.field_id" ] },
-            "$results.values", " skip"
+            "$results.values", " Other"
           ] };
 	} );
 
@@ -128,7 +128,7 @@ exports.results = function(req, res) {
 	} );
 
 	pipes.push(group);
-	pipes.push({"$group": {_id: {grp: "$gender", val: "$drink"}, quantity: {"$sum": 1}}});
+	pipes.push({"$group": {_id: {grp: "$"+fields[0], val: "$"+fields[1]}, quantity: {"$sum": 1}}});
 	pipes.push({"$project": {_id: "$_id.grp", val: "$_id.val", quantity: 1}});
 	pipes.push({"$group": {"_id": "$_id", values: {"$push": {"val": "$val", "quantity": "$quantity"}}}});
 	

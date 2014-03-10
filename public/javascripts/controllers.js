@@ -85,12 +85,38 @@ function FormItemCtrl($scope, $routeParams, $timeout, socket, TechlabForm, Techl
 // Controller for an form results
 function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {
 	console.log($routeParams);
-	var fields = $routeParams.query || "gender,drink|gender,drink";
+	var fields = $routeParams.query || "bu,drink|gender,drink";
 	fields = fields.split("|");
 	console.log(fields);
 	var optionsArr = [
 		{
-			"type": "BarChart",
+			"type": "ColumnChart",
+			"cols": [
+		      {
+		        "id": "gender",
+		        "label": "Gender",
+		        "type": "string",
+		        "p": {}
+		      },
+		      {
+		        "id": "beer",
+		        "label": "Beer",
+		        "type": "number",
+		        "p": {}
+		      },
+		      {
+		        "id": "wine",
+		        "label": "Wine",
+		        "type": "number",
+		        "p": {}
+		      },
+		      {
+		        "id": "soft-drink",
+		        "label": "Soft Drink",
+		        "type": "number",
+		        "p": {}
+		      }
+		    ],
 			"options": {	
 				"title": "Drinks per Gender",
 				"isStacked": "true",
@@ -109,9 +135,23 @@ function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {
 		},
 		{
 			"type": "ColumnChart",
+			"aggr": "$avg",
+			"cols": [
+			  {
+		        "id": "bu",
+		        "label": "Business Unit",
+		        "type": "string",
+		        "p": {}
+		      },
+		      {
+		        "id": "trip_duration",
+		        "label": "Trip Duration",
+		        "type": "number",
+		        "p": {}
+		      }
+		    ],
 			"options": {	
 				"title": "Travel time by BU",
-				"isStacked": "true",
 				"fill": 20,
 				"displayExactValues": true,
 				"vAxis": {
@@ -167,57 +207,38 @@ function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {
 
 	function buildChart(options) {
 
-			var chart = {
-			  "type": options.type,
-			  "cssStyle": "height:500px; width:100%;",
-			  "options": options.options,
-			  "formatters": {},
-			  "displayed": true,
-			  "data": {
-			    "cols": [
-			      {
-			        "id": "gender",
-			        "label": "Gender",
-			        "type": "string",
-			        "p": {}
-			      },
-			      {
-			        "id": "beer",
-			        "label": "Beer",
-			        "type": "number",
-			        "p": {}
-			      },
-			      {
-			        "id": "wine",
-			        "label": "Wine",
-			        "type": "number",
-			        "p": {}
-			      },
-			      {
-			        "id": "soft-drink",
-			        "label": "Soft Drink",
-			        "type": "number",
-			        "p": {}
-			      }
-			    ],
-			    "rows": []
-			  }
-			};
+		var chart = {
+		  "type": options.type,
+		  "cssStyle": "height:500px; width:100%;",
+		  "options": options.options,
+		  "formatters": {},
+		  "displayed": true,
+		  "data": {
+		    "cols": options.cols,
+		    "rows": []
+		  }
+		};
 
-			chart.data.rows = $scope.rawResults;
+		chart.data.rows = $scope.rawResults;
 
-			return chart;
-		}
+		return chart;
+	}
 	
 	socket.on('mysubmit', function(data) {
 		$scope.showResults = true;
-		TechlabFormResults.results.query({form: $routeParams.formId, fields: ["gender", "drink"]}, processData);
+		$scope.charts = [];
+		for(i=0; i<fields.length; i++) {
+			TechlabFormResults.results.query({form: $routeParams.formId, fields: fields[i], options: optionsArr[i]}, processData);
+		}
 	});
 	
 	socket.on('submit', function(data) {
 		//console.dir(data);
 		$scope.showResults = true;
-		TechlabFormResults.results.query({form: $routeParams.formId, fields: ["gender", "drink"]}, processData);
+		$scope.charts = [];
+		for(i=0; i<fields.length; i++) {
+			TechlabFormResults.results.query({form: $routeParams.formId, fields: fields[i], options: optionsArr[i]}, processData);
+		}
 	});
 
 		// [{
