@@ -94,6 +94,7 @@ function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {
 		{
 			"type": "BarChart",
 			"calcType": 3,
+			"position": 0,
 			"aggr": "$sum",
 			"cols": [
 		      {
@@ -135,6 +136,7 @@ function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {
 		{
 			"type": "ColumnChart",
 			"calcType": 2,
+			"position": 1,
 			"aggr": "$avg",
 			"cols": [
 			  {
@@ -169,10 +171,9 @@ function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {
 		}
 	];
 
-	//for(i=0; i<fields.length; i++) {
-		TechlabFormResults.results[0] = {form: $routeParams.formId, fields: fields[0], options: optionsArr[0]}, processData};
-		TechlabFormResults.results[1] = {form: $routeParams.formId, fields: fields[1], options: optionsArr[1]}, processData};
-	//}
+	for(i=0; i<fields.length; i++) {
+		TechlabFormResults.results.query({form: $routeParams.formId, fields: fields[i], options: optionsArr[i]}, processData);
+	}
 
 	$scope.charts = [];
 
@@ -206,7 +207,7 @@ function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {
 		// 	$scope.filteredResults = $scope.rawResults.slice(begin, end);
 		// }); //end of pagination
 
-		$scope.charts.push({title: title, body: buildChart(options)});
+		$scope.charts[options.position] = {title: title, body: buildChart(options)};
 	}
 
 	function buildChart(options) {
