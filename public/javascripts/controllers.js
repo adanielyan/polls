@@ -84,13 +84,70 @@ function FormItemCtrl($scope, $routeParams, $timeout, socket, TechlabForm, Techl
 
 // Controller for an form results
 function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {
+	console.log($routeParams);
+	var fields = $routeParams.query || "gender,drink|gender,drink";
+	fields = fields.split("|");
+	console.log(fields);
+	var optionsArr = [
+		{
+			"type": "BarChart",
+			"options": {	
+				"title": "Drinks per Gender",
+				"isStacked": "true",
+				"fill": 20,
+				"displayExactValues": true,
+				"vAxis": {
+					"title": "Drinks",
+					"gridlines": {
+						"count": 6
+					}
+				},
+				"hAxis": {
+					"title": "Gender"
+				}
+			}
+		},
+		{
+			"type": "ColumnChart",
+			"options": {	
+				"title": "Travel time by BU",
+				"isStacked": "true",
+				"fill": 20,
+				"displayExactValues": true,
+				"vAxis": {
+					"title": "Business Unit",
+					"gridlines": {
+						"count": 6
+					}
+				},
+				"hAxis": {
+					"title": "Travel Time"
+				}
+			}
+		}
+	];
 
-	TechlabFormResults.results.query({form: $routeParams.formId}, function(data) {
+	for(i=0; i<fields.length; i++) {
+		TechlabFormResults.results.query({form: $routeParams.formId, fields: fields[i], options: optionsArr[i]}, processData);
+	}
+
+	$scope.charts = [];
+
+	function processData(data) {
 		console.log(data);
-		$scope.showResults = false;
-		$scope.rawResults = data;
+		var options = {};
+		if(data[0].options) {
+			options = JSON.parse(data[0].options);
+			console.log(options);
+		}
 
-		if(data.length > 0) $scope.showResults = true;
+		var title = options.options.title;
+		options.options.title = "";
+
+		$scope.showResults = false;
+		$scope.rawResults = data[0].data;
+
+		if($scope.rawResults > 0) $scope.showResults = true;
 
 		// //pagination
 		// $scope.totalItems = data.length;
@@ -104,30 +161,18 @@ function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {
 
 		// 	$scope.filteredResults = $scope.rawResults.slice(begin, end);
 		// }); //end of pagination
-		options = {
-			"title": "",
-			"isStacked": "true",
-			"fill": 20,
-			"displayExactValues": true,
-			"vAxis": {
-				"title": "Drinks",
-				"gridlines": {
-					"count": 6
-				}
-			},
-			"hAxis": {
-				"title": "Gender"
-			}
-		};
 
-		$scope.chart1 = {title: "Drinks per Gender", body: buildChart("BarChart", options)};
-	});
+		$scope.charts.push({title: title, body: buildChart(options)});
+	}
 
-	function buildChart(type, options) {
+	function buildChart(options) {
 
 			var chart = {
-			  "type": type,
+			  "type": options.type,
 			  "cssStyle": "height:500px; width:100%;",
+			  "options": options.options,
+			  "formatters": {},
+			  "displayed": true,
 			  "data": {
 			    "cols": [
 			      {
@@ -156,10 +201,7 @@ function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {
 			      }
 			    ],
 			    "rows": []
-			  },
-			  "options": options,
-			  "formatters": {},
-			  "displayed": true
+			  }
 			};
 
 			chart.data.rows = $scope.rawResults;
@@ -169,13 +211,13 @@ function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {
 	
 	socket.on('mysubmit', function(data) {
 		$scope.showResults = true;
-		//$scope.rawResults.push(data);
+		TechlabFormResults.results.query({form: $routeParams.formId, fields: ["gender", "drink"]}, processData);
 	});
 	
 	socket.on('submit', function(data) {
 		//console.dir(data);
 		$scope.showResults = true;
-		//$scope.rawResults.push(data);		
+		TechlabFormResults.results.query({form: $routeParams.formId, fields: ["gender", "drink"]}, processData);
 	});
 
 		// [{

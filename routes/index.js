@@ -99,17 +99,27 @@ exports.form = function(req, res) {
 exports.results = function(req, res) {
 	// Form ID comes in the URL
 	var formId = req.query.form;
+	var fields = req.query.fields.split(",");//["gender", "drink"];
+	var options = req.query.options;
+	console.log(fields);
+	var pipes =[];
 
-	var fields = ["name", "gender", "drink"];
+	// Never change the order of pipes in array! Pushes should be always in the following order!
+	pipes.push({"$match" : {"form_id": formId}});
+	pipes.push({"$unwind": "$results"});
+	pipes.push({"$match" : { "results.field_id": {"$in": fields}}});
+	pipes.push({"$unwind": "$results.values"});
+
 	var project = { "$project" : {} } ;
 
 	fields.forEach( function(f) { 
-
 	    project["$project"][f] = { "$cond" : 
-	                      [ { "$eq" : [ f, "$results.field_id" ] },
-	                        "$results.values", " skip"
-	                      ] };
+          [ { "$eq" : [ f, "$results.field_id" ] },
+            "$results.values", " skip"
+          ] };
 	} );
+
+	pipes.push(project);
 
 	var group = { "$group" : { "_id" : "$_id" } };
 
@@ -117,21 +127,16 @@ exports.results = function(req, res) {
 	    group["$group"][f] = { "$max" : "$" + f }; 
 	} );
 
-	var aggregate = [
-		{	"$match": {"form_id": formId}	}, 
-		{	"$unwind": "$results"	},
-		{	"$match" : { "results.field_id" : { "$in" : fields } }	},
-		{	"$unwind": "$results.values"	},
-		project,
-		group,
-		{	"$group": {_id: {grp: "$gender", val: "$drink"}, quantity: {"$sum": 1}}	},
-		{	"$project": {_id: "$_id.grp", val: "$_id.val", quantity: 1}	},
-		{	"$group": {"_id": "$_id", values: {"$push": {"val": "$val", "quantity": "$quantity"}}}	}
-	];
+	pipes.push(group);
+	pipes.push({"$group": {_id: {grp: "$gender", val: "$drink"}, quantity: {"$sum": 1}}});
+	pipes.push({"$project": {_id: "$_id.grp", val: "$_id.val", quantity: 1}});
+	pipes.push({"$group": {"_id": "$_id", values: {"$push": {"val": "$val", "quantity": "$quantity"}}}});
 	
 	// Find the form by its ID, use lean as we won't be changing it
-	TechlabFormResults.aggregate(aggregate, function(err, results) {
-		if(results) {
+	TechlabFormResults.aggregate(pipes, function(err, results) {
+		if(results && results[0]._id) {
+			console.log("AXTUNG");
+			console.log(results);
 			var rows = [];
 			var drinks = ["beer", "wine", "soft_drink"];
 			for(i=0; i<results.length; i++) {
@@ -150,10 +155,10 @@ exports.results = function(req, res) {
 			}
 			console.log(rows[0]["c"][0]);
 
-			res.json(rows);
+			res.json([{options: options, data: rows}]);
 		} else {
 			console.log("Error!");
-			res.json({error:true});
+			res.json([{error:true}]);
 		}
 	});
 };

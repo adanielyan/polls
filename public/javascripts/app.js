@@ -8,7 +8,7 @@ angular.module('polls', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'pollServices',
 			when('/forms', { templateUrl: 'partials/formlist.html', controller: FormListCtrl }).
 			when('/form/:formId', { templateUrl: 'partials/formitem.html' }).
 			when('/newform', { templateUrl: 'partials/newform.html', controller: FormNewCtrl }).
-			when('/results/:formId', { templateUrl: 'partials/results.html', controller: FormResultsCtrl }).
+			when('/results/:formId/:query?', { templateUrl: 'partials/results.html', controller: FormResultsCtrl }).
 			// If invalid route, just redirect to the main list view
 			otherwise({ redirectTo: '/polls' });
 	}]);
