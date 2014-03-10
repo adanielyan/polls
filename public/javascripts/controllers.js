@@ -161,7 +161,8 @@ function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {
 				},
 				"hAxis": {
 					"title": "Business Unit",
-					"slantedText": false
+					"slantedText": false,
+					"showTextEvery": 1
 				}
 			}
 		}
