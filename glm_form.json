@@ -31,18 +31,141 @@
             "type" : "select",
             "multi" : false,
             "values" : [ 
-                {
-                    "id" : "usa",
-                    "name" : "USA"
-                }, 
-                {
-                    "id" : "south_africa",
-                    "name" : "South Africa"
-                }, 
-                {
-                    "id" : "jordan",
-                    "name" : "Jordan"
-                }
+		{
+			"id": "United States",
+			"name": "United States"
+		},
+		{	
+			"id": "Bangladesh",
+			"name": "Bangladesh"
+		},
+		{	
+			"id": "Burundi",
+			"name": "Burundi"
+		},
+		{
+			"id": "Cambodia",
+			"name": "Cambodia"
+		},
+		{
+			"id": "Cote D'Ivoire",
+			"name": "Cote D'Ivoire"
+		},
+		{
+			"id": "Democratic Republic of Congo",
+			"name": "Democratic Republic of Congo"
+		},
+		{
+			"id": "Egypt",
+			"name": "Egypt"
+		},
+		{
+			"id": "Equatorial Guinea",
+			"name": "Equatorial Guinea"
+		},
+		{
+			"id": "Ethiopia",
+			"name": "Ethiopia"
+		},
+		{
+			"id": "Ghana",
+			"name": "Ghana"
+			},
+		{
+			"id": "India",
+			"name": "India"
+		},
+		{
+			"id": "Indonesia",
+			"name": "Indonesia"
+		},
+		{
+			"id": "Iraq",
+			"name": "Iraq"
+		},
+		{
+			"id": "Jordan",
+			"name": "Jordan"
+		},
+		{
+			"id": "Kenya",
+			"name": "Kenya"
+		},
+		{
+			"id": "Kosovo",
+			"name": "Kosovo"
+		},
+		{
+			"id": "Liberia",
+			"name": "Liberia"
+		},
+		{
+			"id": "Malawi",
+			"name": "Malawi"
+		},
+		{
+			"id": "Moldova",
+			"name": "Moldova"
+		},
+		{	"id": "Mozambique",
+			"name": "Mozambique"
+		},
+		{
+			"id": "Nepal",
+			"name": "Nepal"
+		},
+		{
+			"id": "Nigeria",
+			"name": "Nigeria"
+		},
+		{
+			"id": "Papua New Guinea",
+			"name": "Papua New Guinea"
+		},
+		{
+			"id": "Philippines",
+			"name": "Philippines"
+		},
+		{
+			"id": "Rwanda",
+			"name": "Rwanda"
+		},
+		{
+			"id": "Senegal",
+			"name": "Senegal"
+		},
+		{
+			"id": "South Africa",
+			"name": "South Africa"
+		},
+		{
+			"id": "Swaziland",
+			"name": "Swaziland"
+		},
+		{
+			"id": "Tanzania",
+			"name": "Tanzania"
+		},
+		{
+			"id": "Thailand",
+			"name": "Thailand"
+		},
+		{
+			"id": "Uganda",
+			"name": "Uganda"
+		},
+		{
+			"id": "Ukraine",
+			"name": "Ukraine"
+		},
+		{
+			"id": "Vietnam",
+			"name": "Vietnam"
+		},
+		{
+			"id": "Zambia",
+			"name": "Zambia"
+		}
             ]
         }, 
         {
