@@ -154,13 +154,13 @@ function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {
 				"fill": 20,
 				"displayExactValues": true,
 				"vAxis": {
-					"title": "Business Unit",
+					"title": "Travel Time",
 					"gridlines": {
 						"count": 6
 					}
 				},
 				"hAxis": {
-					"title": "Travel Time"
+					"title": "Business Unit"
 				}
 			}
 		}

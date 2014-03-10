@@ -299,6 +299,10 @@
                     "name" : "Data analysis and visualization"
                 }, 
                 {
+                    "id" : "Social media",
+                    "name" : "Social media"
+                },
+                {
                     "id" : "Mobile messaging",
                     "name" : "Mobile messaging"
                 }, 
