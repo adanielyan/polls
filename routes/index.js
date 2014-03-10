@@ -152,7 +152,7 @@ exports.results = function(req, res) {
 	
 	// Find the form by its ID, use lean as we won't be changing it
 	TechlabFormResults.aggregate(pipes, function(err, results) {
-		if(results && results[0]._id) {
+		if(results !== undefined && results[0]._id) {
 			var rows = [];
 			for(i=0; i<results.length; i++) {
 				rows.push({"c": []});
