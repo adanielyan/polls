@@ -119,6 +119,7 @@ function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {
 				"title": "Drinks per Gender",
 				"isStacked": "true",
 				"fill": 20,
+				"height": 400,
 				"displayExactValues": true,
 				"vAxis": {
 					"title": "Drinks",
