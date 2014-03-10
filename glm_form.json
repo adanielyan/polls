@@ -16,11 +16,11 @@
             "multi" : false,
             "values" : [ 
                 {
-                    "id" : "male",
+                    "id" : "Male",
                     "name" : "Male"
                 }, 
                 {
-                    "id" : "female",
+                    "id" : "Female",
                     "name" : "Female"
                 }
             ]
@@ -31,141 +31,142 @@
             "type" : "select",
             "multi" : false,
             "values" : [ 
-		{
-			"id": "United States",
-			"name": "United States"
-		},
-		{	
-			"id": "Bangladesh",
-			"name": "Bangladesh"
-		},
-		{	
-			"id": "Burundi",
-			"name": "Burundi"
-		},
-		{
-			"id": "Cambodia",
-			"name": "Cambodia"
-		},
-		{
-			"id": "Cote D'Ivoire",
-			"name": "Cote D'Ivoire"
-		},
-		{
-			"id": "Democratic Republic of Congo",
-			"name": "Democratic Republic of Congo"
-		},
-		{
-			"id": "Egypt",
-			"name": "Egypt"
-		},
-		{
-			"id": "Equatorial Guinea",
-			"name": "Equatorial Guinea"
-		},
-		{
-			"id": "Ethiopia",
-			"name": "Ethiopia"
-		},
-		{
-			"id": "Ghana",
-			"name": "Ghana"
-			},
-		{
-			"id": "India",
-			"name": "India"
-		},
-		{
-			"id": "Indonesia",
-			"name": "Indonesia"
-		},
-		{
-			"id": "Iraq",
-			"name": "Iraq"
-		},
-		{
-			"id": "Jordan",
-			"name": "Jordan"
-		},
-		{
-			"id": "Kenya",
-			"name": "Kenya"
-		},
-		{
-			"id": "Kosovo",
-			"name": "Kosovo"
-		},
-		{
-			"id": "Liberia",
-			"name": "Liberia"
-		},
-		{
-			"id": "Malawi",
-			"name": "Malawi"
-		},
-		{
-			"id": "Moldova",
-			"name": "Moldova"
-		},
-		{	"id": "Mozambique",
-			"name": "Mozambique"
-		},
-		{
-			"id": "Nepal",
-			"name": "Nepal"
-		},
-		{
-			"id": "Nigeria",
-			"name": "Nigeria"
-		},
-		{
-			"id": "Papua New Guinea",
-			"name": "Papua New Guinea"
-		},
-		{
-			"id": "Philippines",
-			"name": "Philippines"
-		},
-		{
-			"id": "Rwanda",
-			"name": "Rwanda"
-		},
-		{
-			"id": "Senegal",
-			"name": "Senegal"
-		},
-		{
-			"id": "South Africa",
-			"name": "South Africa"
-		},
-		{
-			"id": "Swaziland",
-			"name": "Swaziland"
-		},
-		{
-			"id": "Tanzania",
-			"name": "Tanzania"
-		},
-		{
-			"id": "Thailand",
-			"name": "Thailand"
-		},
-		{
-			"id": "Uganda",
-			"name": "Uganda"
-		},
-		{
-			"id": "Ukraine",
-			"name": "Ukraine"
-		},
-		{
-			"id": "Vietnam",
-			"name": "Vietnam"
-		},
-		{
-			"id": "Zambia",
-			"name": "Zambia"
-		}
+                {
+                    "id" : "United States",
+                    "name" : "United States"
+                }, 
+                {
+                    "id" : "Bangladesh",
+                    "name" : "Bangladesh"
+                }, 
+                {
+                    "id" : "Burundi",
+                    "name" : "Burundi"
+                }, 
+                {
+                    "id" : "Cambodia",
+                    "name" : "Cambodia"
+                }, 
+                {
+                    "id" : "Cote D'Ivoire",
+                    "name" : "Cote D'Ivoire"
+                }, 
+                {
+                    "id" : "Democratic Republic of Congo",
+                    "name" : "Democratic Republic of Congo"
+                }, 
+                {
+                    "id" : "Egypt",
+                    "name" : "Egypt"
+                }, 
+                {
+                    "id" : "Equatorial Guinea",
+                    "name" : "Equatorial Guinea"
+                }, 
+                {
+                    "id" : "Ethiopia",
+                    "name" : "Ethiopia"
+                }, 
+                {
+                    "id" : "Ghana",
+                    "name" : "Ghana"
+                }, 
+                {
+                    "id" : "India",
+                    "name" : "India"
+                }, 
+                {
+                    "id" : "Indonesia",
+                    "name" : "Indonesia"
+                }, 
+                {
+                    "id" : "Iraq",
+                    "name" : "Iraq"
+                }, 
+                {
+                    "id" : "Jordan",
+                    "name" : "Jordan"
+                }, 
+                {
+                    "id" : "Kenya",
+                    "name" : "Kenya"
+                }, 
+                {
+                    "id" : "Kosovo",
+                    "name" : "Kosovo"
+                }, 
+                {
+                    "id" : "Liberia",
+                    "name" : "Liberia"
+                }, 
+                {
+                    "id" : "Malawi",
+                    "name" : "Malawi"
+                }, 
+                {
+                    "id" : "Moldova",
+                    "name" : "Moldova"
+                }, 
+                {
+                    "id" : "Mozambique",
+                    "name" : "Mozambique"
+                }, 
+                {
+                    "id" : "Nepal",
+                    "name" : "Nepal"
+                }, 
+                {
+                    "id" : "Nigeria",
+                    "name" : "Nigeria"
+                }, 
+                {
+                    "id" : "Papua New Guinea",
+                    "name" : "Papua New Guinea"
+                }, 
+                {
+                    "id" : "Philippines",
+                    "name" : "Philippines"
+                }, 
+                {
+                    "id" : "Rwanda",
+                    "name" : "Rwanda"
+                }, 
+                {
+                    "id" : "Senegal",
+                    "name" : "Senegal"
+                }, 
+                {
+                    "id" : "South Africa",
+                    "name" : "South Africa"
+                }, 
+                {
+                    "id" : "Swaziland",
+                    "name" : "Swaziland"
+                }, 
+                {
+                    "id" : "Tanzania",
+                    "name" : "Tanzania"
+                }, 
+                {
+                    "id" : "Thailand",
+                    "name" : "Thailand"
+                }, 
+                {
+                    "id" : "Uganda",
+                    "name" : "Uganda"
+                }, 
+                {
+                    "id" : "Ukraine",
+                    "name" : "Ukraine"
+                }, 
+                {
+                    "id" : "Vietnam",
+                    "name" : "Vietnam"
+                }, 
+                {
+                    "id" : "Zambia",
+                    "name" : "Zambia"
+                }
             ]
         }, 
         {
@@ -175,43 +176,43 @@
             "multi" : false,
             "values" : [ 
                 {
-                    "id" : "apro",
+                    "id" : "APRO",
                     "name" : "APRO"
                 }, 
                 {
-                    "id" : "wca_mena",
+                    "id" : "WCA/MENA",
                     "name" : "WCA/MENA"
                 }, 
                 {
-                    "id" : "esa",
+                    "id" : "ESA",
                     "name" : "ESA"
                 }, 
                 {
-                    "id" : "us",
+                    "id" : "US",
                     "name" : "US"
                 }, 
                 {
-                    "id" : "ghpn",
+                    "id" : "GHPN",
                     "name" : "GHPN"
                 }, 
                 {
-                    "id" : "sed",
+                    "id" : "SED",
                     "name" : "SED"
                 }, 
                 {
-                    "id" : "gl",
+                    "id" : "GL",
                     "name" : "GL"
                 }, 
                 {
-                    "id" : "grs",
+                    "id" : "GRS",
                     "name" : "GRS"
                 }, 
                 {
-                    "id" : "bpp",
+                    "id" : "BPP",
                     "name" : "BPP"
                 }, 
                 {
-                    "id" : "om",
+                    "id" : "OM",
                     "name" : "OM"
                 }
             ]
@@ -230,15 +231,31 @@
             "multi" : false,
             "values" : [ 
                 {
-                    "id" : "beer",
+                    "id" : "Beer",
                     "name" : "Beer"
                 }, 
                 {
-                    "id" : "wine",
+                    "id" : "Wine",
                     "name" : "Wine"
                 }, 
                 {
-                    "id" : "soft_drink",
+                    "id" : "Whiskey",
+                    "name" : "Whiskey"
+                }, 
+                {
+                    "id" : "Gin",
+                    "name" : "Gin"
+                }, 
+                {
+                    "id" : "Rum",
+                    "name" : "Rum"
+                }, 
+                {
+                    "id" : "Tequila",
+                    "name" : "Tequila"
+                }, 
+                {
+                    "id" : "Soft drink",
                     "name" : "Soft drink"
                 }
             ]
@@ -254,43 +271,43 @@
                     "name" : "Websites"
                 }, 
                 {
-                    "id" : "database",
+                    "id" : "Databases",
                     "name" : "Databases"
                 }, 
                 {
-                    "id" : "data_collection",
+                    "id" : "Data collection",
                     "name" : "Data collection"
                 }, 
                 {
-                    "id" : "mhealth",
+                    "id" : "mHealth",
                     "name" : "mHealth"
                 }, 
                 {
-                    "id" : "elearning",
+                    "id" : "eLearning",
                     "name" : "eLearning"
                 }, 
                 {
-                    "id" : "video",
+                    "id" : "Video",
                     "name" : "Video"
                 }, 
                 {
-                    "id" : "project_management_tools",
+                    "id" : "Project management tools",
                     "name" : "Project management tools"
                 }, 
                 {
-                    "id" : "data_analysis_and_visualization",
+                    "id" : "Data analysis and visualization",
                     "name" : "Data analysis and visualization"
                 }, 
                 {
-                    "id" : "mobile_messaging",
+                    "id" : "Mobile messaging",
                     "name" : "Mobile messaging"
                 }, 
                 {
-                    "id" : "games",
+                    "id" : "Games",
                     "name" : "Games"
                 }, 
                 {
-                    "id" : "other",
+                    "id" : "Other",
                     "name" : "Other"
                 }
             ]

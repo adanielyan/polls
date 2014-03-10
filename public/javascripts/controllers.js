@@ -87,7 +87,7 @@ function FormItemCtrl($scope, $routeParams, $timeout, socket, TechlabForm, Techl
 // Controller for an form results
 function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {
 	console.log($routeParams);
-	var fields = $routeParams.query || "gender,drink|bu,trip_duration";
+	var fields = $routeParams.query || "drink,gender|bu,trip_duration";
 	fields = fields.split("|");
 	console.log(fields);
 	var optionsArr = [
@@ -97,26 +97,20 @@ function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {
 			"aggr": "$sum",
 			"cols": [
 		      {
-		        "id": "gender",
-		        "label": "Gender",
+		        "id": "drink",
+		        "label": "Drink",
 		        "type": "string",
 		        "p": {}
 		      },
 		      {
-		        "id": "beer",
-		        "label": "Beer",
+		        "id": "male",
+		        "label": "Male",
 		        "type": "number",
 		        "p": {}
 		      },
 		      {
-		        "id": "wine",
-		        "label": "Wine",
-		        "type": "number",
-		        "p": {}
-		      },
-		      {
-		        "id": "soft_drink",
-		        "label": "Soft Drink",
+		        "id": "female",
+		        "label": "Female",
 		        "type": "number",
 		        "p": {}
 		      }
