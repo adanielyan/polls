@@ -267,7 +267,7 @@
             "multi" : false,
             "values" : [ 
                 {
-                    "id" : "website",
+                    "id" : "Website",
                     "name" : "Websites"
                 }, 
                 {

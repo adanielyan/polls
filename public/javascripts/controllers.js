@@ -103,13 +103,13 @@ function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {
 		        "p": {}
 		      },
 		      {
-		        "id": "male",
+		        "id": "Male",
 		        "label": "Male",
 		        "type": "number",
 		        "p": {}
 		      },
 		      {
-		        "id": "female",
+		        "id": "Female",
 		        "label": "Female",
 		        "type": "number",
 		        "p": {}
