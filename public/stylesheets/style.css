@@ -21,3 +21,51 @@ body {
 	max-width: 300px;
 	text-align: right;
 }
+
+.alert-animation.ng-hide-add,
+.alert-animation.ng-hide-remove {
+  -webkit-transition:all linear 0.5s;
+  -moz-transition:all linear 0.5s;
+  -ms-transition:all linear 0.5s;
+  -o-transition:all linear 0.5s;
+  transition:all linear 0.5s;
+
+  /* remember to add this */
+  display:block!important;
+  opacity:1;
+}
+
+.alert-animation.ng-hide {
+  opacity:0;
+}
+
+.view.container {
+  position:relative;
+}
+.slide-animation.ng-enter, .slide-animation.ng-leave {
+  -webkit-transition:0.2s linear all;
+  transition:0.2s linear all;
+
+  position:absolute;
+}
+
+.slide-animation.ng-enter {
+  z-index:100;
+  left:600px;
+  opacity:0;
+}
+.slide-animation.ng-enter.ng-enter-active {
+  left:0;
+  opacity:1;
+}
+
+.slide-animation.ng-leave {
+  z-index:101;
+  left:0;
+  opacity:1;
+}
+.slide-animation.ng-leave.ng-leave-active {
+  left:-600px;
+  opacity:0;
+}
+

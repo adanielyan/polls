@@ -1,0 +1,1 @@
+db.formresults.aggregate([{"$match": {"form_id": "GLM"}}, {"$unwind": "$results"}, {"$match": {"results.field_id": "drink"}}, {"$unwind": "$results.values"}, {"$group": {"_id": "$results.values", "count": {"$sum": 1}}}])

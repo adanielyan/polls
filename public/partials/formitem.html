@@ -9,7 +9,7 @@
 	<div class="panel panel-default">
 		<div class="panel-heading">Please fill in this form</div>
 		<div class="panel-body">
-
+						
 			<form role="form" ng-submit="submit()">
 
 				<div ng-repeat="field in form.fields" class="form-group">
@@ -19,7 +19,7 @@
 					<div data-ng-switch on="field.type">
 						
 						<div ng-switch-when="checkbox">
-							<div ng-repeat="value in field.values">
+							<div ng-repeat="value in field.values" class="checkbox">
 								<label>
 									<input type="checkbox" name="{{value.id}}" ng-true-value="{{value.id}}" ng-false-value="" ng-model="results.results[$parent.$index].values[$index]" /> {{value.name}}
 								</label>
@@ -27,9 +27,9 @@
 						</div>
 
 						<div ng-switch-when="radio">
-							<div ng-repeat="value in field.values">
+							<div ng-repeat="value in field.values" class="radio">
 								<label>
-									<input type="radio" name="{{field.field_id}}" value="{{value.id}}" ng-true-value="{{value.id}}" ng-false-value="" ng-model="results.results[$parent.$index].values[$index]" /> {{value.name}}
+									<input type="radio" name="{{field.field_id}}" value="{{value.id}}" ng-true-value="{{value.id}}" ng-false-value="" ng-model="results.results[$parent.$index].values[0]" /> {{value.name}}
 								</label>
 							</div>
 						</div>
@@ -51,10 +51,12 @@
 				</div>
 
 				<p><hr></p>
+				<div class="alert alert-{{message.type}} alert-animation" ng-show="showAlert">{{message.text}}</div>
 				<div class="row">
 					<div class="col-xs-6">
 						<a href="#/forms" class="btn btn-default" role="button"><span class="glyphicon glyphicon-arrow-left"></span> Back to Forms List</a>
 					</div>
+
 					<div class="col-xs-6">
 						<button class="btn btn-primary pull-right" type="submit">Submit &raquo;</button>
 					</div>
@@ -65,21 +67,14 @@
 	
 
 	<div ng-show="showResults" ng-controller="FormResultsCtrl" class="panel panel-default">
-		<div class="panel-heading">{{form._id}} Form Submission Results</div>
-		<div class="panel-body">
-			<table class="result-table">
-				<tr ng-repeat="result in formResults" ng-model="result">
-					<td>{{result._id}}</td>
-					<td>{{result.submitted}}</td>
-				</tr>
-			</table>
-
-		</div>
+	<div class="panel-heading">{{form._id}} Form Submission Results</div>
+	<div class="panel-body">
+			<p><a href="#/results/{{form._id}}" class="btn btn-default" role="button"><span class="glyphicon glyphicon-align-left"></span> Show Submissions</a></p>
+	</div>
+</div>
 	</div>
 
-	<div>
-		<p><a href="#/forms" class="btn btn-default" role="button"><span class="glyphicon glyphicon-arrow-left"></span> Back to Forms List</a></p>
-	</div>
+	
 
 	<p>&nbsp;</p>
 </div>

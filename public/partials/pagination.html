@@ -1,0 +1,13 @@
+<div class="panel-heading">{{form._id}} Form Submission Results</div>
+	<div class="panel-body">
+		<table class="result-table">
+			<tr ng-repeat="result in filteredResults" ng-model="filteredResults">
+				<td>{{result._id}}</td>
+			</tr>
+		</table>
+
+		<pagination total-items="totalItems" items-per-page="itemsPerPage" page="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages"></pagination>
+
+			<p><a href="#/forms" class="btn btn-default" role="button"><span class="glyphicon glyphicon-arrow-left"></span> Back to Forms List</a></p>
+	</div>
+</div>

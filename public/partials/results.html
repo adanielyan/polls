@@ -1,0 +1,33 @@
+<div class="page-wrapper" ng-controller="FormResultsCtrl">
+	<div class="page-header">
+		<h1>{{form.title}}</h1>
+	</div>
+
+	<div class="col-xs-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">{{chart1.title}}</div>
+			<div class="panel-body">
+				<div google-chart chart="chart1.body" style="{{chart.cssStyle}}"/></div>			
+			</div>
+		</div>
+	</div>
+
+	<div class="col-xs-6">
+		<div class="panel panel-default" >
+			<div class="panel-heading">Form results</div>
+			<div class="panel-body">
+				<div google-chart chart="chart1.body" style="{{chart.cssStyle}}"/></div>			
+			</div>
+		</div>
+	</div>
+
+	<div class="col-xs-6">
+		<div class="panel panel-default" >
+			<div class="panel-heading">Form results</div>
+			<div class="panel-body">
+				<div google-chart chart="chart1.body" style="{{chart.cssStyle}}"/></div>			
+			</div>
+		</div>
+	</div>
+	
+</div>

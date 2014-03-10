@@ -1,0 +1,179 @@
+{
+    "_id" : "GLM",
+    "title" : "GLM - TechLab Cocktail Party Survey",
+    "fields" : [ 
+        {
+            "field_id" : "name",
+            "label" : "Your name",
+            "type" : "text",
+            "multi" : false,
+            "values" : []
+        }, 
+        {
+            "field_id" : "gender",
+            "label" : "Your gender",
+            "type" : "radio",
+            "multi" : false,
+            "values" : [ 
+                {
+                    "id" : "male",
+                    "name" : "Male"
+                }, 
+                {
+                    "id" : "female",
+                    "name" : "Female"
+                }
+            ]
+        }, 
+        {
+            "field_id" : "country",
+            "label" : "What country did you come from?",
+            "type" : "select",
+            "multi" : false,
+            "values" : [ 
+                {
+                    "id" : "usa",
+                    "name" : "USA"
+                }, 
+                {
+                    "id" : "south_africa",
+                    "name" : "South Africa"
+                }, 
+                {
+                    "id" : "jordan",
+                    "name" : "Jordan"
+                }
+            ]
+        }, 
+        {
+            "field_id" : "bu",
+            "label" : "Business Unit",
+            "type" : "select",
+            "multi" : false,
+            "values" : [ 
+                {
+                    "id" : "apro",
+                    "name" : "APRO"
+                }, 
+                {
+                    "id" : "wca_mena",
+                    "name" : "WCA/MENA"
+                }, 
+                {
+                    "id" : "esa",
+                    "name" : "ESA"
+                }, 
+                {
+                    "id" : "us",
+                    "name" : "US"
+                }, 
+                {
+                    "id" : "ghpn",
+                    "name" : "GHPN"
+                }, 
+                {
+                    "id" : "sed",
+                    "name" : "SED"
+                }, 
+                {
+                    "id" : "gl",
+                    "name" : "GL"
+                }, 
+                {
+                    "id" : "grs",
+                    "name" : "GRS"
+                }, 
+                {
+                    "id" : "bpp",
+                    "name" : "BPP"
+                }, 
+                {
+                    "id" : "om",
+                    "name" : "OM"
+                }
+            ]
+        }, 
+        {
+            "field_id" : "drink",
+            "label" : "What do you drink?",
+            "type" : "radio",
+            "multi" : false,
+            "values" : [ 
+                {
+                    "id" : "beer",
+                    "name" : "Beer"
+                }, 
+                {
+                    "id" : "wine",
+                    "name" : "Wine"
+                }, 
+                {
+                    "id" : "soft_drink",
+                    "name" : "Soft drink"
+                }
+            ]
+        }, 
+        {
+            "field_id" : "technology",
+            "label" : "What are the technologies of your interest?",
+            "type" : "checkbox",
+            "multi" : false,
+            "values" : [ 
+                {
+                    "id" : "website",
+                    "name" : "Websites"
+                }, 
+                {
+                    "id" : "database",
+                    "name" : "Databases"
+                }, 
+                {
+                    "id" : "data_collection",
+                    "name" : "Data collection"
+                }, 
+                {
+                    "id" : "mhealth",
+                    "name" : "mHealth"
+                }, 
+                {
+                    "id" : "elearning",
+                    "name" : "eLearning"
+                }, 
+                {
+                    "id" : "video",
+                    "name" : "Video"
+                }, 
+                {
+                    "id" : "project_management_tools",
+                    "name" : "Project management tools"
+                }, 
+                {
+                    "id" : "data_analysis_and_visualization",
+                    "name" : "Data analysis and visualization"
+                }, 
+                {
+                    "id" : "mobile_messaging",
+                    "name" : "Mobile messaging"
+                }, 
+                {
+                    "id" : "games",
+                    "name" : "Games"
+                }, 
+                {
+                    "id" : "other",
+                    "name" : "Other"
+                }
+            ]
+        }, 
+        {
+            "field_id" : "other_technology",
+            "label" : "",
+            "type" : "text",
+            "parent_question" : 5,
+            "parent_option" : 10,
+            "multi" : false,
+            "values" : []
+        }
+    ],
+    "__v" : 0
+}

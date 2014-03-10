@@ -41,14 +41,19 @@ function PollItemCtrl($scope, $routeParams, socket, Poll) {
 }
 
 // Controller for an individual form
-function FormItemCtrl($scope, $routeParams, socket, TechlabForm, TechlabFormResults) {	
+function FormItemCtrl($scope, $routeParams, $timeout, socket, TechlabForm, TechlabFormResults) {	
 	TechlabForm.get({formId: $routeParams.formId}, function(form) {
+		$scope.message = {type: "info", text: ""};
+		$scope.showAlert = false;
+		
+		var hideAlert = function() {
+			$scope.showAlert = false;
+		}
 
 		$scope.init = function(form) {
 			$scope.form = form;
 			$scope.results = TechlabFormResults.init.get({formId: $routeParams.formId});
-			console.log($scope.results);
-		}
+		} 
 
 		$scope.init(form);
 
@@ -62,7 +67,6 @@ function FormItemCtrl($scope, $routeParams, socket, TechlabForm, TechlabFormResu
 		
 		$scope.submit = function() {
 			var	results = $scope.results;
-			console.log(results);
 			
 			for(i=0; i<results.results.length; i++) {
 				results.results[i].values = results.results[i].values.filter(function(n){return n; });
@@ -70,42 +74,143 @@ function FormItemCtrl($scope, $routeParams, socket, TechlabForm, TechlabFormResu
 			
 			var result = jQuery.parseJSON(angular.toJson(results));
 			socket.emit('send:submit', result);
+			$scope.message = {type: "success", text: "Form has been submitted!"};
+			$scope.showAlert = true;
+			$timeout(hideAlert, 5000);
 			$scope.init(form);
-			for(i=0; i< $scope.form.fields.length; i++) {
-				if($scope.form.fields[i].type == "text") {
-					$scope.form.fields[i].values = [];
-				}
-				else {
-					//$scope.form.fields[i].values = [];
-				}
-			}
 		};
 	});
 }
 
 // Controller for an form results
-function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {	
-	TechlabFormResults.results.query({formId: $routeParams.formId}, function(data) {
+function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {
+
+	TechlabFormResults.results.query({form: $routeParams.formId}, function(data) {
+		console.log(data);
 		$scope.showResults = false;
-		$scope.formResults = data;
+		$scope.rawResults = data;
+
 		if(data.length > 0) $scope.showResults = true;
+
+		// //pagination
+		// $scope.totalItems = data.length;
+		// $scope.itemsPerPage = 10;
+		// $scope.currentPage = 1;
+		// $scope.maxSize = 5;
+
+		// $scope.$watch('currentPage', function() {
+		// 	var begin = (($scope.currentPage - 1) * $scope.itemsPerPage),
+		// 	end = begin + $scope.itemsPerPage;
+
+		// 	$scope.filteredResults = $scope.rawResults.slice(begin, end);
+		// }); //end of pagination
+		options = {
+			"title": "",
+			"isStacked": "true",
+			"fill": 20,
+			"displayExactValues": true,
+			"vAxis": {
+				"title": "Drinks",
+				"gridlines": {
+					"count": 6
+				}
+			},
+			"hAxis": {
+				"title": "Gender"
+			}
+		};
+
+		$scope.chart1 = {title: "Drinks per Gender", body: buildChart("BarChart", options)};
 	});
+
+	function buildChart(type, options) {
+
+			var chart = {
+			  "type": type,
+			  "cssStyle": "height:500px; width:100%;",
+			  "data": {
+			    "cols": [
+			      {
+			        "id": "gender",
+			        "label": "Gender",
+			        "type": "string",
+			        "p": {}
+			      },
+			      {
+			        "id": "beer",
+			        "label": "Beer",
+			        "type": "number",
+			        "p": {}
+			      },
+			      {
+			        "id": "wine",
+			        "label": "Wine",
+			        "type": "number",
+			        "p": {}
+			      },
+			      {
+			        "id": "soft-drink",
+			        "label": "Soft Drink",
+			        "type": "number",
+			        "p": {}
+			      }
+			    ],
+			    "rows": []
+			  },
+			  "options": options,
+			  "formatters": {},
+			  "displayed": true
+			};
+
+			chart.data.rows = $scope.rawResults;
+
+			return chart;
+		}
 	
 	socket.on('mysubmit', function(data) {
-		if(data.form_id === $routeParams.formId) {
-			$scope.showResults = true;
-			$scope.formResults.push(data);
-		}
+		$scope.showResults = true;
+		//$scope.rawResults.push(data);
 	});
 	
 	socket.on('submit', function(data) {
 		//console.dir(data);
-		if(data.form_id === $routeParams.formId) {
-			$scope.showResults = true;
-			$scope.formResults.push(data);
-		}		
+		$scope.showResults = true;
+		//$scope.rawResults.push(data);		
 	});
-}
+
+		// [{
+		//         "c": [
+		//           {
+		//             "v": "Male"
+		//           },
+		//           {
+		//             "v": 2,
+		//           },
+		//           {
+		//             "v": 1,
+		//           },
+		//           {
+		//             "v": 1,
+		//           },
+		//         ]
+		//       },
+		//       {
+		//         "c": [
+		//           {
+		//             "v": "Female"
+		//           },
+		//           {
+		//             "v": 0
+		//           },
+		//           {
+		//             "v": 1,
+		//           },
+		//           {
+		//             "v": 2
+		//           },
+		//         ]
+		//       }];
+}	
 
 // Controller for creating a new poll
 function PollNewCtrl($scope, $location, Poll) {

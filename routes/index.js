@@ -98,13 +98,61 @@ exports.form = function(req, res) {
 // JSON API for getting a single form results
 exports.results = function(req, res) {
 	// Form ID comes in the URL
-	var formId = req.params.id;
+	var formId = req.query.form;
+
+	var fields = ["name", "gender", "drink"];
+	var project = { "$project" : {} } ;
+
+	fields.forEach( function(f) { 
+
+	    project["$project"][f] = { "$cond" : 
+	                      [ { "$eq" : [ f, "$results.field_id" ] },
+	                        "$results.values", " skip"
+	                      ] };
+	} );
+
+	var group = { "$group" : { "_id" : "$_id" } };
+
+	fields.forEach( function(f) { 
+	    group["$group"][f] = { "$max" : "$" + f }; 
+	} );
+
+	var aggregate = [
+		{	"$match": {"form_id": formId}	}, 
+		{	"$unwind": "$results"	},
+		{	"$match" : { "results.field_id" : { "$in" : fields } }	},
+		{	"$unwind": "$results.values"	},
+		project,
+		group,
+		{	"$group": {_id: {grp: "$gender", val: "$drink"}, quantity: {"$sum": 1}}	},
+		{	"$project": {_id: "$_id.grp", val: "$_id.val", quantity: 1}	},
+		{	"$group": {"_id": "$_id", values: {"$push": {"val": "$val", "quantity": "$quantity"}}}	}
+	];
 	
 	// Find the form by its ID, use lean as we won't be changing it
-	TechlabFormResults.find({"form_id": formId}, function(err, results) {
+	TechlabFormResults.aggregate(aggregate, function(err, results) {
 		if(results) {
-			res.json(results);
+			var rows = [];
+			var drinks = ["beer", "wine", "soft_drink"];
+			for(i=0; i<results.length; i++) {
+				rows.push({"c": []});
+				rows[i]["c"].push({"v": results[i]._id.charAt(0).toUpperCase() + results[i]._id.slice(1)});
+				for(j=0; j<drinks.length; j++) {
+					for(k=0; k<results[i].values.length; k++) {
+						if(results[i].values[k].val == drinks[j]) {
+							rows[i]["c"].push({"v": results[i].values[k].quantity});
+						}
+					}
+					if(rows[i]["c"][j+1] === undefined) {
+						rows[i]["c"].push({"v": 0});
+					}
+				}
+			}
+			console.log(rows[0]["c"][0]);
+
+			res.json(rows);
 		} else {
+			console.log("Error!");
 			res.json({error:true});
 		}
 	});
