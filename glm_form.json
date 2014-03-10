@@ -219,7 +219,7 @@
         }, 
         {
             "field_id" : "trip_duration",
-            "label" : "How long did it take you to get here?",
+            "label" : "How many hors did it take you to get here?",
             "type" : "number",
             "multi" : false,
             "values" : []
@@ -301,7 +301,7 @@
                 {
                     "id" : "Social media",
                     "name" : "Social media"
-                },
+                }, 
                 {
                     "id" : "Mobile messaging",
                     "name" : "Mobile messaging"

@@ -150,11 +150,11 @@ function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {
 		      }
 		    ],
 			"options": {	
-				"title": "Travel time by BU",
+				"title": "Travel time by Business Unit",
 				"fill": 20,
 				"displayExactValues": true,
 				"vAxis": {
-					"title": "Travel Time",
+					"title": "Travel Time (hours)",
 					"gridlines": {
 						"count": 6
 					}
