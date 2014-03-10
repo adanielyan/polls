@@ -127,7 +127,7 @@ function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {
 					}
 				},
 				"hAxis": {
-					"title": "Gender"
+					"title": ""
 				}
 			}
 		},
