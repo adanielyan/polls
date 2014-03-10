@@ -62,7 +62,7 @@ function FormItemCtrl($scope, $routeParams, $timeout, socket, TechlabForm, Techl
 		});
 		
 		socket.on('submit', function(data) {
-			$scope.init(form);		
+			//$scope.init(form);		
 		});
 		
 		$scope.submit = function() {
@@ -103,13 +103,13 @@ function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {
 		        "p": {}
 		      },
 		      {
-		        "id": "male",
+		        "id": "Male",
 		        "label": "Male",
 		        "type": "number",
 		        "p": {}
 		      },
 		      {
-		        "id": "female",
+		        "id": "Female",
 		        "label": "Female",
 		        "type": "number",
 		        "p": {}
@@ -150,17 +150,17 @@ function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {
 		      }
 		    ],
 			"options": {	
-				"title": "Travel time by BU",
+				"title": "Travel time by Business Unit",
 				"fill": 20,
 				"displayExactValues": true,
 				"vAxis": {
-					"title": "Business Unit",
+					"title": "Travel Time (hours)",
 					"gridlines": {
 						"count": 6
 					}
 				},
 				"hAxis": {
-					"title": "Travel Time"
+					"title": "Business Unit"
 				}
 			}
 		}
