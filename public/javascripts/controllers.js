@@ -62,7 +62,7 @@ function FormItemCtrl($scope, $routeParams, $timeout, socket, TechlabForm, Techl
 		});
 		
 		socket.on('submit', function(data) {
-			$scope.init(form);		
+			//$scope.init(form);		
 		});
 		
 		$scope.submit = function() {
