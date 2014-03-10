@@ -170,8 +170,8 @@ function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {
 	];
 
 	//for(i=0; i<fields.length; i++) {
-		TechlabFormResults.results[0]({form: $routeParams.formId, fields: fields[0], options: optionsArr[0]}, processData);
-		TechlabFormResults.results[1]({form: $routeParams.formId, fields: fields[1], options: optionsArr[1]}, processData);
+		TechlabFormResults.results[0] = {form: $routeParams.formId, fields: fields[0], options: optionsArr[0]}, processData};
+		TechlabFormResults.results[1] = {form: $routeParams.formId, fields: fields[1], options: optionsArr[1]}, processData};
 	//}
 
 	$scope.charts = [];
