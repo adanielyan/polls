@@ -67,6 +67,8 @@ function FormItemCtrl($scope, $routeParams, $timeout, socket, TechlabForm, Techl
 		
 		$scope.submit = function() {
 			var	results = $scope.results;
+			console.log("RESULT");
+			console.log(results);
 			
 			for(i=0; i<results.results.length; i++) {
 				results.results[i].values = results.results[i].values.filter(function(n){return n; });
@@ -85,12 +87,14 @@ function FormItemCtrl($scope, $routeParams, $timeout, socket, TechlabForm, Techl
 // Controller for an form results
 function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {
 	console.log($routeParams);
-	var fields = $routeParams.query || "bu,drink|gender,drink";
+	var fields = $routeParams.query || "gender,drink|bu,trip_duration";
 	fields = fields.split("|");
 	console.log(fields);
 	var optionsArr = [
 		{
-			"type": "ColumnChart",
+			"type": "BarChart",
+			"calcType": 3,
+			"aggr": "$sum",
 			"cols": [
 		      {
 		        "id": "gender",
@@ -111,7 +115,7 @@ function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {
 		        "p": {}
 		      },
 		      {
-		        "id": "soft-drink",
+		        "id": "soft_drink",
 		        "label": "Soft Drink",
 		        "type": "number",
 		        "p": {}
@@ -135,6 +139,7 @@ function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {
 		},
 		{
 			"type": "ColumnChart",
+			"calcType": 2,
 			"aggr": "$avg",
 			"cols": [
 			  {
@@ -178,7 +183,8 @@ function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {
 		var options = {};
 		if(data[0].options) {
 			options = JSON.parse(data[0].options);
-			console.log(options);
+			console.log("DATA");
+			console.log(data);
 		}
 
 		var title = options.options.title;
@@ -187,7 +193,7 @@ function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {
 		$scope.showResults = false;
 		$scope.rawResults = data[0].data;
 
-		if($scope.rawResults > 0) $scope.showResults = true;
+		if($scope.rawResults.length > 0) $scope.showResults = true;
 
 		// //pagination
 		// $scope.totalItems = data.length;
@@ -240,39 +246,6 @@ function FormResultsCtrl($scope, $routeParams, socket, TechlabFormResults) {
 			TechlabFormResults.results.query({form: $routeParams.formId, fields: fields[i], options: optionsArr[i]}, processData);
 		}
 	});
-
-		// [{
-		//         "c": [
-		//           {
-		//             "v": "Male"
-		//           },
-		//           {
-		//             "v": 2,
-		//           },
-		//           {
-		//             "v": 1,
-		//           },
-		//           {
-		//             "v": 1,
-		//           },
-		//         ]
-		//       },
-		//       {
-		//         "c": [
-		//           {
-		//             "v": "Female"
-		//           },
-		//           {
-		//             "v": 0
-		//           },
-		//           {
-		//             "v": 1,
-		//           },
-		//           {
-		//             "v": 2
-		//           },
-		//         ]
-		//       }];
 }	
 
 // Controller for creating a new poll

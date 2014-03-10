@@ -8,7 +8,7 @@ exports.ResultsSchema = new mongoose.Schema({
 		{
 			field_id: String,
 			label: String,
-			values: [String]
+			values: [{}]
 		}
 	]
 });

@@ -101,6 +101,14 @@ exports.results = function(req, res) {
 	var formId = req.query.form;
 	var fields = req.query.fields.split(",");//["gender", "drink"];
 	var options = req.query.options;
+	var cols = JSON.parse(options).cols.slice(1);
+	var calcType = JSON.parse(options).calcType;
+	var aggr = options.aggr;
+	var noData = (calcType == 3)?" Other":0;
+
+	console.log("OPTS");
+	console.log(cols);
+
 	console.log(fields);
 	var pipes =[];
 
@@ -115,7 +123,7 @@ exports.results = function(req, res) {
 	fields.forEach( function(f) { 
 	    project["$project"][f] = { "$cond" : 
           [ { "$eq" : [ f, "$results.field_id" ] },
-            "$results.values", " Other"
+            "$results.values", noData
           ] };
 	} );
 
@@ -128,32 +136,51 @@ exports.results = function(req, res) {
 	} );
 
 	pipes.push(group);
-	pipes.push({"$group": {_id: {grp: "$"+fields[0], val: "$"+fields[1]}, quantity: {"$sum": 1}}});
-	pipes.push({"$project": {_id: "$_id.grp", val: "$_id.val", quantity: 1}});
+
+	switch(calcType) {
+		case 2:
+			pipes.push({"$group": {_id: "$"+fields[0], quantity: {"$avg": "$"+fields[1]}}});
+			pipes.push({"$project": {_id: "$_id", val: {"$concat": "Avg"}, quantity: 1}});
+			break;
+		case 3:
+			pipes.push({"$group": {_id: {grp: "$"+fields[0], val: "$"+fields[1]}, quantity: {"$sum": 1}}});
+			pipes.push({"$project": {_id: "$_id.grp", val: "$_id.val", quantity: 1}});
+			break;
+	}
+
 	pipes.push({"$group": {"_id": "$_id", values: {"$push": {"val": "$val", "quantity": "$quantity"}}}});
 	
 	// Find the form by its ID, use lean as we won't be changing it
 	TechlabFormResults.aggregate(pipes, function(err, results) {
 		if(results && results[0]._id) {
-			console.log("AXTUNG");
-			console.log(results);
 			var rows = [];
-			var drinks = ["beer", "wine", "soft_drink"];
 			for(i=0; i<results.length; i++) {
 				rows.push({"c": []});
-				rows[i]["c"].push({"v": results[i]._id.charAt(0).toUpperCase() + results[i]._id.slice(1)});
-				for(j=0; j<drinks.length; j++) {
-					for(k=0; k<results[i].values.length; k++) {
-						if(results[i].values[k].val == drinks[j]) {
-							rows[i]["c"].push({"v": results[i].values[k].quantity});
+				rows[i]["c"].push({"v": results[i]._id});
+
+				switch(calcType) {
+					case 3:
+						for(j=0; j<cols.length; j++) {
+							for(k=0; k<results[i].values.length; k++) {
+								if(results[i].values[k].val == cols[j].id) {
+									rows[i]["c"].push({"v": results[i].values[k].quantity});
+								}
+							}
+							if(rows[i]["c"][j+1] === undefined) {
+								console.log("no match");
+								rows[i]["c"].push({"v": 0});
+							}
 						}
-					}
-					if(rows[i]["c"][j+1] === undefined) {
-						rows[i]["c"].push({"v": 0});
-					}
+						break;
+					case 2:
+						rows[i]["c"].push({"v": results[i].values[0].quantity});
+						if(rows[i]["c"][1] === undefined) {
+							console.log("no match");
+							rows[i]["c"].push({"v": 0});
+						}
+						break;
 				}
 			}
-			console.log(rows[0]["c"][0]);
 
 			res.json([{options: options, data: rows}]);
 		} else {
